@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useDebounce } from 'use-debounce';
+import React, { useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
 
-import { useStateContext } from '../contexts/StateContextProvider';
-import { Links } from './Links';
+import { useStateContext } from "../contexts/StateContextProvider";
+import { Links } from "./Links";
 
 export const Search = () => {
   const { setSearchTerm } = useStateContext();
-  const [text, setText] = useState('Google');
+  const [text, setText] = useState("Google");
   const [debouncedValue] = useDebounce(text, 300);
 
   useEffect(() => {
+    console.log(debouncedValue);
     if (debouncedValue) setSearchTerm(debouncedValue);
   }, [debouncedValue]);
 
@@ -22,8 +23,12 @@ export const Search = () => {
         placeholder="🔎 Search Google or type URL"
         onChange={(e) => setText(e.target.value)}
       />
-      {text !== '' && (
-        <button type="button" className="absolute top-1.5 right-4 text-2xl text-gray-500 " onClick={() => setText('')}>
+      {text !== "" && (
+        <button
+          type="button"
+          className="absolute top-1.5 right-4 text-2xl text-gray-500 "
+          onClick={() => setText("")}
+        >
           x
         </button>
       )}
